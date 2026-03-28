@@ -26,13 +26,17 @@ def load_data():
         'EstimatedSalary': np.random.uniform(10000, 200000, n_samples),
         'Geography': np.random.choice(['France', 'Germany', 'Spain'], n_samples),
         'Gender': np.random.choice(['Male', 'Female'], n_samples),
-        'Exited': 0  # Initialize
     }
     
-    # Perfect separation rule: Churn if Age > 50 AND Balance > 100000 AND IsActiveMember == 0
+    # Create Exited column with perfect separation
+    exited = []
     for i in range(n_samples):
         if data['Age'][i] > 50 and data['Balance'][i] > 100000 and data['IsActiveMember'][i] == 0:
-            data['Exited'][i] = 1
+            exited.append(1)
+        else:
+            exited.append(0)
+    
+    data['Exited'] = exited
     
     df = pd.DataFrame(data)
     return df
