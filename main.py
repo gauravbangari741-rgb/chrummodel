@@ -98,7 +98,7 @@ def main():
         
         if 'prediction' in st.session_state:
             prediction = st.session_state.prediction
-            probability = st.session_state.probiction
+            probability = st.session_state.probability
             
             # Display prediction
             if prediction == 1:
