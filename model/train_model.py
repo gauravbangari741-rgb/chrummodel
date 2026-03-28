@@ -43,8 +43,11 @@ def load_data():
 
 def preprocess_data(df):
     """Preprocess the data: drop unnecessary columns and encode categoricals."""
-    # Drop unnecessary columns
-    df = df.drop(['RowNumber', 'CustomerId', 'Surname'], axis=1)
+    # Drop unnecessary columns if they exist
+    columns_to_drop = ['RowNumber', 'CustomerId', 'Surname']
+    existing_columns = [col for col in columns_to_drop if col in df.columns]
+    if existing_columns:
+        df = df.drop(existing_columns, axis=1)
     
     # Encode categorical variables
     df = pd.get_dummies(df, drop_first=True)
