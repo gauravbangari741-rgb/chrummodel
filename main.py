@@ -87,7 +87,7 @@ def main():
                 probability = model.predict_proba(df)[0][1]  # Probability of churn (class 1)
                 
                 # Store result in session state
-                st.session_state.prediction = iabilitydiction)
+                st.session_state.prediction = int(prediction)
                 st.session_state.probability = float(probability)
                 
             except Exception as e:
