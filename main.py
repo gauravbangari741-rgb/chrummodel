@@ -69,13 +69,22 @@ def main():
             }
             
             try:
-                # Simple rule-based prediction for testing (replace with model later)
-                if age > 40 or balance > 100000 or num_products > 2:
-                    prediction = 1
-                    probability = 0.75
-                else:
-                    prediction = 0
-                    probability = 0.25
+                # Convert to DataFrame
+                df = pd.DataFrame([customer_data])
+                
+                # Encode categorical variables (same as training)
+                df = pd.get_dummies(df, drop_first=True)
+                
+                # Align columns with model's feature names
+                feature_names = model.feature_names_in_
+                for col in feature_names:
+                    if col not in df.columns:
+                        df[col] = 0
+                df = df[feature_names]
+                
+                # Make prediction
+                prediction = model.predict(df)[0]
+                probability = model.predict_proba(df)[0][1]  # Probability of churn (class 1)
                 
                 # Store result in session state
                 st.session_state.prediction = int(prediction)
